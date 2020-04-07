@@ -1,26 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import firebase from 'firebase';
+import Navigation from './Navigation';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+var firebaseConfig = {
+  apiKey: "AIzaSyDXzqfaUZn4Kxt93mOCD6f-MDbXt3PCsQU",
+  authDomain: "learning-react-3134c.firebaseapp.com",
+  databaseURL: "https://learning-react-3134c.firebaseio.com",
+  projectId: "learning-react-3134c",
+  storageBucket: "learning-react-3134c.appspot.com",
+  messagingSenderId: "669153604869",
+  appId: "1:669153604869:web:e8ed92145f20be26ebb36c",
+};
+firebase.initializeApp(firebaseConfig);
+
+export default class App extends React.Component{
+  render(){
+    return(
+      <Navigation />      
+    )
+  }
 }
-
-export default App;
