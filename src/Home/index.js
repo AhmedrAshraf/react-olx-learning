@@ -1,36 +1,23 @@
+import "./style.css";
 import React from "react";
-import firebase from "firebase";
+import { Link } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
 
-export default class Forget extends React.Component {
-  state = { email: "" };
-
-  handleEmail = (event) => {
-    this.setState({ email: event.target.value });
-  };
-
-  submit = () => {
-    firebase
-      .auth()
-      .sendPasswordResetEmail(this.state.email)
-      .then(function (success) {
-      })
-      .catch(function (error) {
-        alert(error);
-      });
-  };
+export default class Home extends React.Component {
 
   render() {
     return (
       <div>
-        <h3>Forget password</h3>
+        <AppBar position="static">
+          <div className='head'>
+            <h3>Home</h3>
 
-        <input
-          value={this.state.email}
-          onChange={this.handleEmail}
-          placeholder="email"
-        />
-        <br />
-        <button onClick={this.submit}>Resset password</button>
+            <Link to='/Sell'>
+              <h3 className="but">sell</h3>
+            </Link>
+
+          </div>
+        </AppBar>
       </div>
     );
   }

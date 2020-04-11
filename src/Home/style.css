@@ -1,0 +1,10 @@
+.head{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
+
+.but{
+    color: white;
+}

@@ -1,11 +1,12 @@
 import React from "react";
 import firebase from "firebase";
-
+import History from "../History";
 
 export default class Signup extends React.Component {
   state = {
     name: "",
     email: "",
+    number: "",
     password: "",
   };
 
@@ -17,14 +18,30 @@ export default class Signup extends React.Component {
     this.setState({ email: event.target.value });
   };
 
+  handleNumber = (event) => {
+    this.setState({ number: event.target.value });
+  };
+
   handlePsw = (event) => {
     this.setState({ password: event.target.value });
   };
 
   submit = () => {
-    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(function (success) {
-        console.log("Signup -> submit -> success", success);
+    let db = firebase.firestore();
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((success) => {
+        db.collection("users")
+          .add({
+            name: this.state.name,
+            email: this.state.email,
+            number: this.state.number,
+          })
+          .then(function (docRef) {
+            History.push("/Home");
+          });
       })
       .catch(function (error) {
         alert(error);
@@ -49,6 +66,12 @@ export default class Signup extends React.Component {
           value={this.state.email}
           onChange={this.handleEmail}
           placeholder="email"
+        />
+        <br />
+        <input
+          value={this.state.number}
+          onChange={this.handleNumber}
+          placeholder="Phone Number"
         />
         <br />
         <input

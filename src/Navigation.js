@@ -1,8 +1,9 @@
 import React from "react";
-import Home from "./Home/index";
-import Login from "./Login/index";
-import Signup from "./Signup/index";
-import Forget from "./Forget/index";
+import Home from "./Home";
+import Sell from "./sell";
+import Login from "./Login";
+import Signup from "./Signup";
+import Forget from "./Forget";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 export default class Navigation extends React.Component {
@@ -14,15 +15,19 @@ export default class Navigation extends React.Component {
           <Signup />
         </Route>
           
-        <Route exact path="/forget">
+        <Route path="/forget">
           <Forget />
         </Route>
           
-        <Route exact path="/home">
+        <Route path="/Home">
           <Home />
         </Route>
+          
+        <Route path="/Sell">
+          <Sell />
+        </Route>
 
-        <Route exact path="/Login">
+        <Route path="/Login">
           <Login />
         </Route>
 
