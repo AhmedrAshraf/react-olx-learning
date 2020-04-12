@@ -1,5 +1,6 @@
 import React from "react";
 import firebase from "firebase";
+import History from "../History";
 
 export default class Login extends React.Component {
   state = {
@@ -21,7 +22,7 @@ export default class Login extends React.Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(function (success) {
         localStorage.setItem("uid", success.user.uid);
-        this.props.History.push("/home");
+            History.push("/Home");
       })
       .catch(function (error) {
         alert(error);

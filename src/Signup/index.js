@@ -33,11 +33,13 @@ export default class Signup extends React.Component {
       .auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((success) => {
+        localStorage.setItem('uid', success.user.uid)
         db.collection("users")
           .add({
             name: this.state.name,
             email: this.state.email,
             number: this.state.number,
+            uid: success.user.uid,
           })
           .then(function (docRef) {
             History.push("/Home");

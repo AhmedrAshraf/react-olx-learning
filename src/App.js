@@ -1,6 +1,6 @@
 import React from 'react';
-import firebase from 'firebase';
 import Navigation from './Navigation';
+import firebase from 'firebase';
 
 var firebaseConfig = {
   apiKey: "AIzaSyDXzqfaUZn4Kxt93mOCD6f-MDbXt3PCsQU",

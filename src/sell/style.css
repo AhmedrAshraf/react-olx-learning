@@ -1,6 +1,5 @@
-.head{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    align-items: center;
+.width{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 90%;
 }
