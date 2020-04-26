@@ -1,7 +1,6 @@
-import "./style.css";
+import "../Home/style.css";
 import db from "../fire";
 import React from "react";
-import History from "../History";
 import { Button, Navbar, FormControl, Nav, Form } from "react-bootstrap";
 
 export default class Home extends React.Component {
@@ -13,22 +12,28 @@ export default class Home extends React.Component {
     this.getData();
   };
 
-  getData = () => {
-    let array = [];
+  getData = async () => {
+    let uid = await localStorage.getItem("uid");
+    let arr = [];
     db.collection("adds")
-      .onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach(change => {
-          array.push(change.doc.data());
+      .where("uid", "==", uid)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          arr.push({ id: doc.id, data: doc.data() });
         });
-        this.setState({ adds: array });
-      });
-
+        this.setState({ adds: arr });
+      })
+      .catch((error) => console.log(error));
   };
 
-  logout() {
-    localStorage.removeItem("uid");
-    History.push("/Login");
-  }
+  deleteAdd = (id) => {
+    db.collection("adds")
+      .doc(id)
+      .delete()
+      .then(() => console.log("Document successfully deleted!"))
+      .catch((error) => console.error(error));
+  };
 
   render() {
     return (
@@ -44,22 +49,18 @@ export default class Home extends React.Component {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-light">Search</Button>
           </Form>
-          <Button variant="outline-light" onClick={this.logout}>
-            Logout
-          </Button>
         </Navbar>
 
         <div className="postsView">
           {this.state.adds.map((item, index) => {
+            console.log("Home -> render -> item", item);
             return (
               <div className="addscontainer">
                 <img src={item.url} width="200px" />
-                <h5>Title: {item.title}</h5>
-                <p>Rs. {item.price}</p>
-                <p style={{ overflow: "hidden", height: "25px" }}>
-                  Detail: {item.disc}
-                </p>
-                <Button color="info">info</Button>{" "}
+                <h3>Title: {item.data.title}</h3>
+                <h2>Rs. {item.data.price}</h2>
+                <p>Detail: {item.data.disc}</p>
+                <button onClick={() => this.deleteAdd(item.id)}>Delete</button>
               </div>
             );
           })}

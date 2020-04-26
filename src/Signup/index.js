@@ -10,6 +10,11 @@ export default class Signup extends React.Component {
     password: "",
   };
 
+  componentDidMount =  () => {
+    let uid = localStorage.getItem('uid')
+    if (uid) History.push("/Home");
+  }
+
   handleName = (event) => {
     this.setState({ name: event.target.value });
   };

@@ -8,6 +8,13 @@ export default class Login extends React.Component {
     password: "",
   };
 
+  
+  componentDidMount =  () => {
+    let uid = localStorage.getItem('uid')
+    if (uid) History.push("/Home");
+  }
+
+  
   handleEmail = (event) => {
     this.setState({ email: event.target.value });
   };
