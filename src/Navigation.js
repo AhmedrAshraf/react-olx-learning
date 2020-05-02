@@ -1,10 +1,10 @@
 import React from "react";
 import Home from "./Home";
 import Sell from "./sell";
-import Login from "./Login";
 import Adds from "./myAdds";
 import Signup from "./Signup";
 import Forget from "./Forget";
+import Login from "./Login/login";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 export default class Navigation extends React.Component {

@@ -1,7 +1,8 @@
 import "./style.css";
-import db from "../fire";
 import React from "react";
+import firebase from "firebase";
 import History from "../History";
+import { getData } from "../action";
 import { Button, Navbar, FormControl, Nav, Form } from "react-bootstrap";
 
 export default class Home extends React.Component {
@@ -10,19 +11,22 @@ export default class Home extends React.Component {
   };
 
   componentDidMount = () => {
-    this.getData();
-  };
+    getData().then((adds) => {
+      this.setState({ adds });
+    });
 
-  getData = () => {
-    let array = [];
-    db.collection("adds")
-      .onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach(change => {
-          array.push(change.doc.data());
+    firebase
+      .firestore()
+      .collection("notification")
+      .onSnapshot(function (snapshot) {
+        snapshot.docChanges().forEach(function (change) {
+          Notification.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+              new Notification(change.doc.data().name);
+            }
+          });
         });
-        this.setState({ adds: array });
       });
-
   };
 
   logout() {
